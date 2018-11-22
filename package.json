@@ -1,0 +1,27 @@
+{
+  "name": "sweepstake-api",
+  "version": "1.0.0",
+  "description": "Bolão API",
+  "main": "index.js",
+  "scripts": {
+    "local": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matheusfm/sweepstake-api.git"
+  },
+  "keywords": [
+    "sweepstake",
+    "bolão",
+    "api",
+    "node"
+  ],
+  "author": "Matheus Moraes",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "consign": "^0.1.6",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0"
+  }
+}
