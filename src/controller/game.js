@@ -1,37 +1,45 @@
 module.exports = (app) => {
     app.post("/games", (req, res) => {
-        let gameRequest = {
-            date: req.body.date,
-            team1: req.body.team1,
-            team2: req.body.team2,
-        }
-        let repository = new app.repository.GameRepository(app);
-        repository.save(gameRequest, (err, result) => {
-            if (err) {
-                console.log(err);
-                res.status(500).end();
-            } else {
-                res.status(result.affectedRows > 0 ? 201 : 500).end();
+        if (req.user.role.endsWith("ADMIN")) {
+            let gameRequest = {
+                date: req.body.date,
+                team1: req.body.team1,
+                team2: req.body.team2,
             }
-        })
+            let repository = new app.repository.GameRepository(app);
+            repository.save(gameRequest, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).end();
+                } else {
+                    res.status(result.affectedRows > 0 ? 201 : 500).end();
+                }
+            })
+        } else {
+            res.status(403).end();
+        }
     });
 
     app.put("/games/:id", (req, res) => {
-        let gameRequest = {
-            id: req.params.id,
-            date: req.body.date,
-            team1: req.body.team1,
-            team2: req.body.team2,
-        }
-        let repository = new app.repository.GameRepository(app);
-        repository.save(gameRequest, (err, result) => {
-            if (err) {
-                res.status(500).end();
-                console.log(err);
-            } else {
-                res.status(result.affectedRows > 0 ? 200 : 500).end();
+        if (req.user.role.endsWith("ADMIN")) {
+            let gameRequest = {
+                id: req.params.id,
+                date: req.body.date,
+                team1: req.body.team1,
+                team2: req.body.team2,
             }
-        })
+            let repository = new app.repository.GameRepository(app);
+            repository.save(gameRequest, (err, result) => {
+                if (err) {
+                    res.status(500).end();
+                    console.log(err);
+                } else {
+                    res.status(result.affectedRows > 0 ? 200 : 500).end();
+                }
+            })
+        } else {
+            res.status(403).end();
+        }
     });
 
     app.get("/games", (req, res) => {
@@ -65,37 +73,45 @@ module.exports = (app) => {
     });
 
     app.delete("/games/:id", (req, res) => {
-        let id = req.params.id;
-        let repository = new app.repository.GameRepository(app);
-        repository.disable(id, (err, result) => {
-            if (err) {
-                console.log(err);
-                res.status(500).end();
-            } else {
-                if (result.affectedRows > 0) {
-                    res.status(204).end();
+        if (req.user.role.endsWith("ADMIN")) {
+            let id = req.params.id;
+            let repository = new app.repository.GameRepository(app);
+            repository.disable(id, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).end();
                 } else {
-                    res.status(404).end();
+                    if (result.affectedRows > 0) {
+                        res.status(204).end();
+                    } else {
+                        res.status(404).end();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            res.status(403).end();
+        }
     });
 
     app.post("/games/:id/goals", (req, res) => {
-        let resultRequest = {
-            id: req.params.id,
-            tream1_goals: req.body.tream1_goals,
-            tream2_goals: req.body.tream2_goals,
-        }
-        let repository = new app.repository.GameRepository(app);
-        
-        repository.save(resultRequest, (err, result) => {
-            if (err) {
-                console.log(err);
-                res.status(500).end();
-            } else {
-                res.status(result.affectedRows > 0 ? 201 : 500).end();
+        if (req.user.role.endsWith("ADMIN")) {
+            let resultRequest = {
+                id: req.params.id,
+                tream1_goals: req.body.tream1_goals,
+                tream2_goals: req.body.tream2_goals,
             }
-        })
+            let repository = new app.repository.GameRepository(app);
+
+            repository.save(resultRequest, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).end();
+                } else {
+                    res.status(result.affectedRows > 0 ? 201 : 500).end();
+                }
+            });
+        } else {
+            res.status(403).end();
+        }
     });
 }
