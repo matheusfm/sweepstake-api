@@ -1,5 +1,22 @@
 module.exports = (app) => {
 
+    app.post("/users", (req, res) => {
+        let userRequest = {
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password,
+        }
+        let repository = new app.repository.UserRepository(app);
+        repository.save(userRequest, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).end();
+            } else {
+                res.status(result.affectedRows > 0 ? 201 : 500).end();
+            }
+        })
+    });
+
     app.post("/auth", (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
