@@ -9,6 +9,18 @@ class BetRepository {
         conn.end();
     }
 
+    findOne(id, callback) {
+        let conn = this._app.db.connection();
+        conn.query("SELECT * FROM bet WHERE id = ?", id, callback);
+        conn.end();
+    }
+
+    delete(id, callback) {
+        let conn = this._app.db.connection();
+        conn.query("DELETE FROM bet WHERE id = ?", id, callback);
+        conn.end();
+    }
+
     findAll(callback) {
         let conn = this._app.db.connection();
         conn.query("SELECT * FROM bet", callback);
@@ -18,6 +30,7 @@ class BetRepository {
     save(bet, callback) {
         let conn = this._app.db.connection();
         if (bet.id) {
+            bet.updated_at = new Date();
             conn.query("UPDATE bet SET ? WHERE id = ?", [bet, bet.id], callback);
         } else {
             conn.query("INSERT INTO bet SET ?", bet, callback);

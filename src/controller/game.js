@@ -31,10 +31,10 @@ module.exports = (app) => {
             let repository = new app.repository.GameRepository(app);
             repository.save(gameRequest, (err, result) => {
                 if (err) {
-                    res.status(500).end();
                     console.log(err);
+                    res.status(500).end();
                 } else {
-                    res.status(result.affectedRows > 0 ? 200 : 500).end();
+                    res.status(result.affectedRows > 0 ? 200 : 404).end();
                 }
             })
         } else {
