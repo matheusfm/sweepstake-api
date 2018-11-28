@@ -38,7 +38,8 @@ CREATE TABLE bet
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     FOREIGN KEY (game_id) REFERENCES game(id),
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    UNIQUE (game_id, user_id)
 );
 ```
 
