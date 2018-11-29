@@ -25,16 +25,16 @@ CREATE TABLE game
     team1 VARCHAR(50) NOT NULL,
     team2 VARCHAR(50) NOT NULL,
     enabled BOOLEAN NOT NULL DEFAULT 1,
-    tream1_goals INT NOT NULL DEFAULT 0,
-    tream2_goals INT NOT NULL DEFAULT 0
+    team1_goals INT NOT NULL DEFAULT 0,
+    team2_goals INT NOT NULL DEFAULT 0
 );
 CREATE TABLE bet
 (
     id INT PRIMARY KEY AUTO_INCREMENT,
     game_id INT NOT NULL,
     user_id INT NOT NULL,
-    tream1_goals INT NOT NULL DEFAULT 0,
-    tream2_goals INT NOT NULL DEFAULT 0,
+    team1_goals INT NOT NULL DEFAULT 0,
+    team2_goals INT NOT NULL DEFAULT 0,
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     FOREIGN KEY (game_id) REFERENCES game(id),

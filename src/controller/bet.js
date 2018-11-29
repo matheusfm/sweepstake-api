@@ -3,8 +3,8 @@ module.exports = (app) => {
         let betRequest = {
             user_id: req.user.id,
             game_id: req.body.game_id,
-            tream1_goals: req.body.tream1_goals,
-            tream2_goals: req.body.tream2_goals,
+            team1_goals: req.body.team1_goals,
+            team2_goals: req.body.team2_goals,
         }
 
         // TODO validar se o game está ativo
@@ -31,8 +31,8 @@ module.exports = (app) => {
             id: req.params.id,
             user_id: req.user.id,
             game_id: req.body.game_id,
-            tream1_goals: req.body.tream1_goals,
-            tream2_goals: req.body.tream2_goals,
+            team1_goals: req.body.team1_goals,
+            team2_goals: req.body.team2_goals,
         }
 
         let repository = new app.repository.BetRepository(app);

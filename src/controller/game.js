@@ -97,8 +97,8 @@ module.exports = (app) => {
         if (req.user.role.endsWith("ADMIN")) {
             let resultRequest = {
                 id: req.params.id,
-                tream1_goals: req.body.tream1_goals,
-                tream2_goals: req.body.tream2_goals,
+                team1_goals: req.body.team1_goals,
+                team2_goals: req.body.team2_goals,
             }
             let repository = new app.repository.GameRepository(app);
 
