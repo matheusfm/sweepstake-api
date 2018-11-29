@@ -24,7 +24,6 @@ CREATE TABLE game
     date DATETIME NOT NULL,
     team1 VARCHAR(50) NOT NULL,
     team2 VARCHAR(50) NOT NULL,
-    enabled BOOLEAN NOT NULL DEFAULT 1,
     team1_goals INT NOT NULL DEFAULT 0,
     team2_goals INT NOT NULL DEFAULT 0
 );

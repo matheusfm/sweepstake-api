@@ -5,13 +5,13 @@ class BetRepository {
 
     findByUserId(userId, callback) {
         let conn = this._app.db.connection();
-        conn.query("SELECT * FROM bet WHERE user_id = ?", userId, callback);
+        conn.query("SELECT bet.*, game.team1, game.team2, game.team1_goals, game.team2_goals, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE user_id = ?", userId, callback);
         conn.end();
     }
 
     findOne(id, callback) {
         let conn = this._app.db.connection();
-        conn.query("SELECT * FROM bet WHERE id = ?", id, callback);
+        conn.query("SELECT bet.*, game.team1, game.team2, game.team1_goals, game.team2_goals, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE bet.id = ?", id, callback);
         conn.end();
     }
 
@@ -21,20 +21,9 @@ class BetRepository {
         conn.end();
     }
 
-    findAll(callback) {
-        let conn = this._app.db.connection();
-        conn.query("SELECT * FROM bet", callback);
-        conn.end();
-    }
-
     save(bet, callback) {
         let conn = this._app.db.connection();
-        if (bet.id) {
-            bet.updated_at = new Date();
-            conn.query("UPDATE bet SET ? WHERE id = ?", [bet, bet.id], callback);
-        } else {
-            conn.query("INSERT INTO bet SET ?", bet, callback);
-        }
+        conn.query("INSERT INTO bet SET ? ON DUPLICATE KEY UPDATE updated_at = NOW(), ?", [bet, bet], callback);
         conn.end();
     }
 }

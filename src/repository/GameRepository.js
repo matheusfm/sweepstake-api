@@ -5,19 +5,13 @@ class GameRepository {
 
     findOne(id, callback) {
         let conn = this._app.db.connection();
-        conn.query("SELECT * FROM game WHERE enabled = TRUE AND id = ?", id, callback);
+        conn.query("SELECT * FROM game WHERE id = ?", id, callback);
         conn.end();
     }
 
     findAll(callback) {
         let conn = this._app.db.connection();
-        conn.query("SELECT * FROM game", callback);
-        conn.end();
-    }
-
-    findByEnabled(enabled, callback) {
-        let conn = this._app.db.connection();
-        conn.query("SELECT * FROM game WHERE enabled = ?", enabled, callback);
+        conn.query("SELECT * FROM game ORDER BY date", callback);
         conn.end();
     }
 
@@ -31,9 +25,9 @@ class GameRepository {
         conn.end();
     }
 
-    disable(gameId, callback) {
+    delete(gameId, callback) {
         let conn = this._app.db.connection();
-        conn.query("UPDATE game SET enabled = false WHERE enabled = TRUE AND id = ?", gameId, callback);
+        conn.query("DELETE FROM game WHERE id = ?", gameId, callback);
         conn.end();
     }
 

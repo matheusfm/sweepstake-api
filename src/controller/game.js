@@ -44,7 +44,7 @@ module.exports = (app) => {
 
     app.get("/games", (req, res) => {
         let repository = new app.repository.GameRepository(app);
-        repository.findByEnabled(true, (err, result) => {
+        repository.findAll((err, result) => {
             if (err) {
                 console.log(err);
                 res.status(500).end();
@@ -76,10 +76,10 @@ module.exports = (app) => {
         if (req.user.role.endsWith("ADMIN")) {
             let id = req.params.id;
             let repository = new app.repository.GameRepository(app);
-            repository.disable(id, (err, result) => {
+            repository.delete(id, (err, result) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).end();
+                    res.status(err.code == "ER_ROW_IS_REFERENCED_2" ? 422 : 500).end();
                 } else {
                     if (result.affectedRows > 0) {
                         res.status(204).end();
