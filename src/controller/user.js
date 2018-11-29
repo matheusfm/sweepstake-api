@@ -1,6 +1,6 @@
 module.exports = (app) => {
 
-    app.post("/users", (req, res) => {
+    app.post('/users', (req, res) => {
         let userRequest = {
             name: req.body.name,
             username: req.body.username,
@@ -17,12 +17,12 @@ module.exports = (app) => {
         })
     });
 
-    app.post("/auth", (req, res) => {
+    app.post('/auth', (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
 
         if (!username || !password) {
-            res.status(400).json({ error: "Invalid username or password" });
+            res.status(400).json({ error: 'Invalid username or password' });
         } else {
             let repository = new app.repository.UserRepository(app);
             repository.findByUsernameAndPassword(username, password, (err, result) => {

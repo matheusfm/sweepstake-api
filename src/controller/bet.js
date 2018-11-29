@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    app.post("/bets", (req, res) => {
+    app.post('/bets', (req, res) => {
         let betRequest = {
             user_id: req.user.id,
             game_id: req.body.game_id,
@@ -11,14 +11,14 @@ module.exports = (app) => {
         repository.save(betRequest, (err, result) => {
             if (err) {
                 console.log(err);
-                res.status(err.code == "ER_DUP_ENTRY" ? 409 : 500).end();
+                res.status(err.code == 'ER_DUP_ENTRY' ? 409 : 500).end();
             } else {
                 res.status(result.affectedRows > 0 ? 201 : 500).end();
             }
         });
     });
 
-    app.get("/bets", (req, res) => {
+    app.get('/bets', (req, res) => {
         let repository = new app.repository.BetRepository(app);
         repository.findByUserId(req.user.id, (err, result) => {
             if (err) {
@@ -30,7 +30,7 @@ module.exports = (app) => {
         });
     });
 
-    app.get("/bets/:id", (req, res) => {
+    app.get('/bets/:id', (req, res) => {
         let repository = new app.repository.BetRepository(app);
         repository.findOne(req.params.id, (err, result) => {
             if (err) {
@@ -47,7 +47,7 @@ module.exports = (app) => {
         });
     });
 
-    app.delete("/bets/:id", (req, res) => {
+    app.delete('/bets/:id', (req, res) => {
         let repository = new app.repository.BetRepository(app);
         repository.delete(req.params.id, (err, result) => {
             if (err) {
