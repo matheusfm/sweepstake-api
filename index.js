@@ -15,7 +15,7 @@ app.use("*", (req, resp, next) => {
     if (req.originalUrl == "/auth" || req.originalUrl == "/health") {
         next();
     } else {
-        const token = req.headers['x-access-token'] || req.query.accessToken;
+        const token = req.headers['x-access-token'] || req.query.access_token;
         if (!token) {
             resp.status(401).end();
         } else {

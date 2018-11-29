@@ -39,7 +39,7 @@ module.exports = (app) => {
                         id: user.id,
                         name: user.name,
                         role: user.role,
-                        accessToken: token
+                        access_token: token
                     }
                     res.status(200).json(response);
                 }
