@@ -12,6 +12,7 @@ app.set('jwt', jwt);
 app.use(bodyParser.json()); // middleware
 
 app.use('*', (req, resp, next) => {
+    resp.setHeader('Access-Control-Allow-Origin', '*')
     if (req.originalUrl == '/auth' || req.originalUrl == '/health') {
         next();
     } else {
