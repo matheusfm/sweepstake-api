@@ -5,13 +5,13 @@ class BetRepository {
 
     findByUserId(userId, callback) {
         let conn = this._app.db.connection();
-        conn.query('SELECT bet.*, game.team1, game.team2, game.team1_goals, game.team2_goals, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE user_id = ?', userId, callback);
+        conn.query('SELECT bet.*, game.team1, game.team2, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE user_id = ?', userId, callback);
         conn.end();
     }
 
     findOne(id, callback) {
         let conn = this._app.db.connection();
-        conn.query('SELECT bet.*, game.team1, game.team2, game.team1_goals, game.team2_goals, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE bet.id = ?', id, callback);
+        conn.query('SELECT bet.*, game.team1, game.team2, game.date FROM bet INNER JOIN game ON bet.game_id = game.id WHERE bet.id = ?', id, callback);
         conn.end();
     }
 
