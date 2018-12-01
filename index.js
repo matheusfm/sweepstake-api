@@ -13,6 +13,7 @@ app.use(bodyParser.json()); // middleware
 
 app.use('*', (req, resp, next) => {
     resp.setHeader('Access-Control-Allow-Origin', '*')
+    resp.setHeader('Access-Control-Allow-Headers', 'Content-Type')
     if (req.originalUrl == '/auth' || req.originalUrl == '/health') {
         next();
     } else {
