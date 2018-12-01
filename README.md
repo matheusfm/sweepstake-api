@@ -51,5 +51,5 @@ FLUSH PRIVILEGES;
 
 Inserting in the user table:
 ```
-INSERT INTO user(name, username, password, role) VALUES ('ADMIN', 'admin', '@dmin', 'SYSADMIN');
+INSERT INTO user(name, username, password, role) VALUES ('ADMIN', 'admin', 'admin', 'SYSADMIN');
 ```
